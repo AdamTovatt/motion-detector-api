@@ -1,0 +1,4 @@
+.vs/
+/MotionDetectorApi/bin/*
+/MotionDetectorApi/obj/*
+/MotionDetectorApi/Properties/launchSettings.json
