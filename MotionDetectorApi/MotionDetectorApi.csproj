@@ -7,7 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Properties\launchSettings_git.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DatabaseMigrations\v0001_create_motion_detector.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\launchSettings_git.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseMigrations\v0001_create_motion_detector.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.24" />
+    <PackageReference Include="dbup-core" Version="5.0.37" />
+    <PackageReference Include="dbup-postgresql" Version="5.0.37" />
+    <PackageReference Include="Npgsql" Version="8.0.0" />
+    <PackageReference Include="SakurWebApiUtilities" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\launchSettings_git.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

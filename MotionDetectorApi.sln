@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetectorApi", "MotionDetectorApi\MotionDetectorApi.csproj", "{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetectorApiTests", "MotionDetectorApiTests\MotionDetectorApiTests.csproj", "{3AA45D34-5613-49DF-9F1D-208617A9EB4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA45D34-5613-49DF-9F1D-208617A9EB4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA45D34-5613-49DF-9F1D-208617A9EB4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA45D34-5613-49DF-9F1D-208617A9EB4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA45D34-5613-49DF-9F1D-208617A9EB4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

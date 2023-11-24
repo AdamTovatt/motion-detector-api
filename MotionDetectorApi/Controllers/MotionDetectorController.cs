@@ -38,9 +38,9 @@ namespace MotionDetectorApi.Controllers
             if (detector.SecretKey != body.SecretKey)
                 return new ObjectResult(new RegisterMotionResult(false, "Secret key is invalid")) { StatusCode = (int)HttpStatusCode.BadRequest };
 
-            detector.LastMotion = DateTime.Now;
+            bool success = await MotionDetectorManager.Instance.RegisterMotionAsync(body.Id, body.SecretKey);
 
-            return new ObjectResult(new RegisterMotionResult(true, "Ok")) { StatusCode = (int)HttpStatusCode.OK };
+            return new ObjectResult(new RegisterMotionResult(success, success ? "Ok" : "Unknown error")) { StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpPost("create-new")]

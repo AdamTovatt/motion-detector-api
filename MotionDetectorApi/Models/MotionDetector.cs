@@ -16,9 +16,9 @@ namespace MotionDetectorApi.Models
         [JsonIgnore]
         public string SecretKey { get; set; }
 
-        public MotionDetector(int id, DateTime? lastMotion, string name, string secretKey)
+        public MotionDetector(int id, string name, string secretKey, DateTime? lastMotion)
         {
-            Id = 0;
+            Id = id;
             LastMotion = lastMotion;
             Name = name;
             SecretKey = secretKey;
