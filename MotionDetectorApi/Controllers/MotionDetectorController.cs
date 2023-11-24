@@ -15,9 +15,7 @@ namespace MotionDetectorApi.Controllers
         [ProducesResponseType(typeof(List<MotionDetector>), (int)HttpStatusCode.OK)]
         public async Task<ObjectResult> GetList()
         {
-            await Task.CompletedTask;
-
-            List<MotionDetector> list = MotionDetectorManager.Instance.GetList();
+            List<MotionDetector> list = await MotionDetectorManager.Instance.GetListAsync();
             return new ObjectResult(list) { StatusCode = (int)HttpStatusCode.OK };
         }
 
@@ -26,15 +24,13 @@ namespace MotionDetectorApi.Controllers
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ObjectResult> RegisterMotion([FromBody] RegisterMotionBody body)
         {
-            await Task.CompletedTask;
-
             if (body.SecretKey == null)
                 return new ObjectResult(new RegisterMotionResult(false, "Secret key is required")) { StatusCode = (int)HttpStatusCode.BadRequest };
 
             if (body.Id == 0)
                 return new ObjectResult(new RegisterMotionResult(false, "Id is required")) { StatusCode = (int)HttpStatusCode.BadRequest };
 
-            MotionDetector? detector = MotionDetectorManager.Instance.Get(body.Id);
+            MotionDetector? detector = await MotionDetectorManager.Instance.GetAsync(body.Id);
 
             if (detector == null)
                 return new ObjectResult(new RegisterMotionResult(false, $"No motion detector with id: {body.Id} found")) { StatusCode = (int)HttpStatusCode.BadRequest };
@@ -52,9 +48,7 @@ namespace MotionDetectorApi.Controllers
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
         public async Task<ObjectResult> CreateNew()
         {
-            await Task.CompletedTask;
-
-            MotionDetector detector = MotionDetectorManager.Instance.CreateNew("Unnamed motion detector");
+            MotionDetector detector = await MotionDetectorManager.Instance.CreateNew("Unnamed motion detector");
 
             return new ObjectResult(new CreateMotionDetectorResult(detector.Id, detector.SecretKey)) { StatusCode = (int)HttpStatusCode.OK };
         }

@@ -23,10 +23,5 @@ namespace MotionDetectorApi.Models
             Name = name;
             SecretKey = secretKey;
         }
-
-        public void RegisterMotion()
-        {
-            LastMotion = DateTime.Now;
-        }
     }
 }

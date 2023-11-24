@@ -1,5 +1,7 @@
-﻿using MotionDetectorApi.Helpers;
+﻿using Dapper;
+using MotionDetectorApi.Helpers;
 using MotionDetectorApi.Models;
+using Npgsql;
 
 namespace MotionDetectorApi.Managers
 {
@@ -15,36 +17,51 @@ namespace MotionDetectorApi.Managers
         }
 
         private static MotionDetectorManager? _instance;
-
-        private Dictionary<int, MotionDetector> motionDetectors;
+        private string connectionString;
 
         public MotionDetectorManager()
         {
-            motionDetectors = new Dictionary<int, MotionDetector>();
+            connectionString = ConnectionStringProvider.GetConnectionString();
         }
 
-        public MotionDetector? Get(int id)
+        private async Task<NpgsqlConnection> GetConnectionAsync()
         {
-            if (motionDetectors.TryGetValue(id, out MotionDetector? result)) return result;
-            return null;
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+            await connection.OpenAsync();
+            return connection;
         }
 
-        public List<MotionDetector> GetList()
+        public async Task<MotionDetector?> GetAsync(int id)
         {
-            return motionDetectors.Values.ToList();
+            const string query = $"SELECT * FROM motion_detector WHERE id = @{nameof(id)}";
+
+            using (NpgsqlConnection connection = await GetConnectionAsync())
+                return (await connection.QueryAsync<MotionDetector>(query, new { id })).FirstOrDefault();
         }
 
-        public MotionDetector CreateNew(string name)
+        public async Task<List<MotionDetector>> GetListAsync()
         {
-            int newId = 1;
+            const string query = "SELECT * FROM motion_detector";
 
-            if (motionDetectors.Count > 0)
-                newId = motionDetectors.Keys.Max() + 1;
+            using (NpgsqlConnection connection = await GetConnectionAsync())
+                return (await connection.QueryAsync<MotionDetector>(query)).ToList();
+        }
 
-            MotionDetector detector = new MotionDetector(newId, null, name, StringIdProvider.Instance.GenerateId(16));
-            motionDetectors.Add(newId, detector);
+        public async Task<MotionDetector> CreateNew(string name)
+        {
+            string secretKey = StringIdProvider.Instance.GenerateId(16);
+            const string query = $"INSERT INTO motion_detector (name, secret_key) VALUES (@{nameof(name)}, @{nameof(secretKey)}) RETURNING id";
 
-            return detector;
+            using (NpgsqlConnection connection = await GetConnectionAsync())
+                return (await GetAsync(await connection.ExecuteScalarAsync<int>(query, new { name, secretKey })))!;
+        }
+
+        public async Task<bool> RegisterMotionAsync(int id, string secretKey)
+        {
+            const string query = $"UPDATE motion_detector SET last_motion = NOW() WHERE id = @{nameof(id)} AND secret_key = @{nameof(secretKey)}";
+
+            using (NpgsqlConnection connection = await GetConnectionAsync())
+                return (await connection.ExecuteAsync(query, new { id, secretKey })) > 0;
         }
     }
 }
