@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MotionDetectorApi.Authorization;
 using MotionDetectorApi.Managers;
 using MotionDetectorApi.Models;
 using MotionDetectorApi.RateLimiting;
@@ -7,7 +8,7 @@ using System.Net;
 namespace MotionDetectorApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class MotionDetectorController : ControllerBase
     {
         [HttpGet("get-list")]
@@ -43,6 +44,7 @@ namespace MotionDetectorApi.Controllers
             return new ObjectResult(new RegisterMotionResult(success, success ? "Ok" : "Unknown error")) { StatusCode = (int)HttpStatusCode.OK };
         }
 
+        [RequireApiKey]
         [HttpPost("create-new")]
         [Limit(MaxRequests = 50, TimeWindow = 10)]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]

@@ -1,4 +1,5 @@
 using Dapper;
+using MotionDetectorApi.Authorization;
 using MotionDetectorApi.Helpers;
 using MotionDetectorApi.RateLimiting;
 
@@ -8,6 +9,11 @@ namespace MotionDetectorApi
     {
         public static void Main(string[] args)
         {
+            if(string.IsNullOrEmpty(Environment.GetEnvironmentVariable("API_KEY")))
+                throw new Exception("The api is badly configured and is missing api key value in the environment variables");
+
+            SetupDatabase();
+
             StringIdProvider.LoadAsync().Wait();
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -18,6 +24,10 @@ namespace MotionDetectorApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSingleton<ApiKeyAuthorizationFilter>();
+            builder.Services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
 
             WebApplication app = builder.Build();
 
