@@ -9,7 +9,7 @@ namespace MotionDetectorApi
     {
         public static void Main(string[] args)
         {
-            if(string.IsNullOrEmpty(Environment.GetEnvironmentVariable("API_KEY")))
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("API_KEY")))
                 throw new Exception("The api is badly configured and is missing api key value in the environment variables");
 
             SetupDatabase();
@@ -31,12 +31,8 @@ namespace MotionDetectorApi
 
             WebApplication app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
