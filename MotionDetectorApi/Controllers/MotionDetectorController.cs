@@ -37,7 +37,7 @@ namespace MotionDetectorApi.Controllers
                 return new ObjectResult(new RegisterMotionResult(false, $"No motion detector with id: {body.Id} found")) { StatusCode = (int)HttpStatusCode.BadRequest };
 
             if (detector.SecretKey != body.SecretKey)
-                return new ObjectResult(new RegisterMotionResult(false, "Secret key is invalid")) { StatusCode = (int)HttpStatusCode.BadRequest };
+                return new ObjectResult(new RegisterMotionResult(false, "Secret key is invalid")) { StatusCode = (int)HttpStatusCode.Forbidden };
 
             bool success = await MotionDetectorManager.Instance.RegisterMotionAsync(body.Id, body.SecretKey);
 
