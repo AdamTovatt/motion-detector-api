@@ -1,0 +1,1 @@
+ALTER TABLE hue_key ADD COLUMN username VARCHAR NOT NULL;

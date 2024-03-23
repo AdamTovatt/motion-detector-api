@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <None Remove="DatabaseMigrations\v0001_create_motion_detector.sql" />
+    <None Remove="DatabaseMigrations\v0002_create_hue_key.sql" />
+    <None Remove="DatabaseMigrations\v0003_add_hue_username.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="DatabaseMigrations\v0003_add_hue_username.sql" />
+    <EmbeddedResource Include="DatabaseMigrations\v0002_create_hue_key.sql" />
     <EmbeddedResource Include="DatabaseMigrations\v0001_create_motion_detector.sql" />
   </ItemGroup>
 
@@ -26,6 +30,9 @@
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="dbup-core" Version="5.0.37" />
     <PackageReference Include="dbup-postgresql" Version="5.0.37" />
+    <PackageReference Include="HueApi" Version="1.6.2" />
+    <PackageReference Include="HueApi.ColorConverters" Version="1.5.1" />
+    <PackageReference Include="HueApi.Entertainment" Version="1.5.1" />
     <PackageReference Include="Npgsql" Version="8.0.0" />
     <PackageReference Include="SakurWebApiUtilities" Version="1.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />

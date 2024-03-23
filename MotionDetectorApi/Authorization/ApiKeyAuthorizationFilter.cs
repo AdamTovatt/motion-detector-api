@@ -25,12 +25,13 @@ namespace MotionDetectorApi.Authorization
                 allowed = false;
             }
 
-            string apiKey = context.HttpContext.Request.Headers[apiKeyHeaderName];
+            string? apiKey = context.HttpContext.Request.Headers[apiKeyHeaderName];
 
             if (string.IsNullOrEmpty(apiKey))
             {
                 context.Result = new ObjectResult(new { message = "Missing value for x-api-key header" }) { StatusCode = (int)HttpStatusCode.Unauthorized };
                 allowed = false;
+                return;
             }
 
             if (!apiKeyValidator.IsValid(apiKey))
