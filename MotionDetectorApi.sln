@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetectorApi", "MotionDetectorApi\MotionDetectorApi.csproj", "{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionDetectorApi", "MotionDetectorApi\MotionDetectorApi.csproj", "{C11E18FF-3059-4C4F-9A1F-EEFE4385CD4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetectorApiTests", "MotionDetectorApiTests\MotionDetectorApiTests.csproj", "{3AA45D34-5613-49DF-9F1D-208617A9EB4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionDetectorApiTests", "MotionDetectorApiTests\MotionDetectorApiTests.csproj", "{3AA45D34-5613-49DF-9F1D-208617A9EB4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
